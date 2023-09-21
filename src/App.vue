@@ -16,6 +16,8 @@ const getMessage =(msg)=>{
     <h3>count:{{ count }}</h3>
     <button @click="changeCount">点我count+1</button>
     <SonCom :count="count" @getMessage="getMessage" message="fathre - message"/>
+    <hr>
+    <el-button type="primary">Primary</el-button>
   </div>
 </template>
 
