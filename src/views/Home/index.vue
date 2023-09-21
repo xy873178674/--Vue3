@@ -5,14 +5,15 @@
 
 
 <template>
- <div>
-    我是Home组件
- </div>
-
+    <div class="home">
+        我是Home组件
+    </div>
 </template>
 
 
-<style scoped>
-
+<style lang="scss" scoped>
+.home{
+    height: 600px;
+}
 
 </style>

@@ -4,10 +4,12 @@
 </script>
 
 <template>
-    <h2>我是组件App</h2>
     <router-view/>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+.test{
+  color: $priceColor;
+}
 
 </style>
