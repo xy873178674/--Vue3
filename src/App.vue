@@ -1,6 +1,7 @@
 <script setup >
 import SonCom from './views/SonCom.vue'
-import {ref} from 'vue'
+import { getCategory } from "@/apis/testApi"
+import {onBeforeMount, ref} from 'vue'
 const count = ref(0)
 const changeCount = ()=>{
   count.value++
@@ -8,6 +9,13 @@ const changeCount = ()=>{
 const getMessage =(msg)=>{
   console.log(msg);
 }
+
+onBeforeMount(()=>{
+  getCategory().then( res =>{
+    console.log(res);   
+})
+}
+)
 </script>
 
 <template>
