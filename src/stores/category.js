@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getCategoryAPI } from '../apis/layout'
 
@@ -10,7 +10,7 @@ const getCategory = async () => {
   const res = await getCategoryAPI()
   // console.log(res.result);
   categoryList.value = res.result
-  console.log(categoryList);
+  // console.log(categoryList);
 }
 return {
     categoryList,

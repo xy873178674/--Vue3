@@ -17,6 +17,8 @@ onMounted(()=>categoryStore.getCategory())
     <LayoutSticky />
     <LayoutNav />
     <LayoutHeader />
-    <RouterView />
+    <!-- 添加一个key 破坏组件的复用机制-->
+    <!-- <RouterView :key="$route.fullPath"/> -->
+    <RouterView/>
     <LayoutFooter />
 </template>
