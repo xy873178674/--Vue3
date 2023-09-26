@@ -11,7 +11,7 @@ const categoryData = ref({})
 const route = useRoute()
 const getCategory = async (id = route.params.id) => {
    const res = await getCategoryAPI(id)
-   // console.log(res.result);
+//    console.log(res.result);
    categoryData.value = res.result
 }
 onMounted(() => getCategory())
