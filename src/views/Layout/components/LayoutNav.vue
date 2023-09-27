@@ -1,15 +1,29 @@
 <script setup>
-
-</script>
+import { useUserStore } from '@/stores/user'
+import { useRouter } from 'vue-router'
+const {userInfo, clearUserInfo} = useUserStore()
+const router = useRouter()
+// console.log(userInfo);
+const confirm = () =>{
+  console.log('用户要退出登入了');
+  // 退出登入业务逻辑实现
+  // 1、清除用户信息 触发action
+  clearUserInfo()
+  // 2、跳转到登入界面
+  router.push('/login')
+}</script>
 
 <template>
   <nav class="app-topnav">
     <div class="container">
       <ul>
-        <template v-if="true">
-          <li><a href="javascript:;"><i class="iconfont icon-user"></i>周杰伦</a></li>
+        <!-- 多模板渲染 区分登录状态和非登入状态 -->
+
+        <!-- 适配思路：登入时显示第一模块 非登入时显示第二模块  是否有token-->
+        <template v-if="userInfo.token">
+          <li><a href="javascript:;"><i class="iconfont icon-user"></i>{{ userInfo.account }}</a></li>
           <li>
-            <el-popconfirm title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
+            <el-popconfirm @confirm="confirm" title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
               <template #reference>
                 <a href="javascript:;">退出登录</a>
               </template>
@@ -19,7 +33,7 @@
           <li><a href="javascript:;">会员中心</a></li>
         </template>
         <template v-else>
-          <li><a href="javascript:;">请先登录</a></li>
+          <li><a href="javascript:;" @click="$router.push('/login')">请先登录</a></li>
           <li><a href="javascript:;">帮助中心</a></li>
           <li><a href="javascript:;">关于我们</a></li>
         </template>

@@ -1,25 +1,56 @@
 <script setup>
 import DetailHot from './components/DetailHot.vue'
-// import ImageView from '@/components/ImageView/index.vue'
-// import XtxSku from '@/components/XtxSku/index.vue'
+// import ImageView from '@/components/ImageView/index.vue' //通用组件全局化注册了
+// import XtxSku from '@/components/XtxSku/index.vue'  //通用组件全局化注册了
 import { getDetail } from '@/apis/detail'
 import { onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
+import{ useCartStore } from '@/stores/cartStore'
+const cartStore = useCartStore()
 
 const route = useRoute()
 const goods = ref({})
-const getGoods =async ()=>{
-   const res = await getDetail(route.params.id)
-   console.log(res);
-   goods.value = res.result
+const getGoods = async () => {
+  const res = await getDetail(route.params.id)
+  // console.log('res.result',res.result);
+  goods.value = res.result
 }
 
-onMounted(()=>getGoods())
+onMounted(() => getGoods())
 
 // sku规格被操作时
-const skuChange = (sku)=>{
-  console.log(sku);
-} 
+let skuObj = {}
+const skuChange = (sku) => {
+  console.log('sku',sku);
+  skuObj = sku
+}
+// count
+const count = ref(1)
+const countChange = (count) => {
+  // console.log(count);
+
+}
+
+// 添加购物车操作时
+const addCart = () => {
+  if (skuObj.skuId) {
+    // 规则已选择 触发action
+    cartStore.addCart({
+      id:goods.value.id,//商品id
+      name:goods.value.name, //商品名称
+      picture:goods.value.mainPictures[0],//图片
+      price:goods.value.price,//最新价格
+      count:count.value,//商品数量
+      skuId:skuObj.skuId,//skuId
+      attrsText:skuObj.specsText,//商品规格文本
+      selected:true//商品是否被选中
+    })
+  } else {
+    // 规则没有选择 提示用户
+    ElMessage.warning('请选择规格')
+  }
+}
 </script>
 
 <template>
@@ -33,8 +64,10 @@ const skuChange = (sku)=>{
             !、可选链语法解决
             2、使用v-if手动控制渲染时机 
            -->
-          <el-breadcrumb-item :to="{ path: `/category/&{goods.categories[1].id}` }">{{ goods.categories[1].name }}</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: `/category/sub/&{goods.categories[1].id}` }">{{ goods.categories[0].name }}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: `/category/&{goods.categories[1].id}` }">{{ goods.categories[1].name
+          }}</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: `/category/sub/&{goods.categories[1].id}` }">{{ goods.categories[0].name
+          }}</el-breadcrumb-item>
           <el-breadcrumb-item>抓绒保暖，毛毛虫子儿童运动鞋</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
@@ -44,7 +77,7 @@ const skuChange = (sku)=>{
           <div class="goods-info">
             <div class="media">
               <!-- 图片预览区 -->
-              <XtxImageView :image-list="goods.mainPictures"/>
+              <XtxImageView :image-list="goods.mainPictures" />
               <!-- 统计数量 -->
               <ul class="goods-sales">
                 <li>
@@ -93,12 +126,12 @@ const skuChange = (sku)=>{
                 </dl>
               </div>
               <!-- sku组件 -->
-              <XtxSku :goods="goods" @change="skuChange"/>
+              <XtxSku :goods="goods" @change="skuChange" />
               <!-- 数据组件 -->
-
+              <el-input-number v-model="count" :min="1" :max="10" @change="countChange" />
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button size="large" class="btn" @click="addCart">
                   加入购物车
                 </el-button>
               </div>
@@ -128,9 +161,9 @@ const skuChange = (sku)=>{
             <!-- 24热榜+专题推荐 -->
             <div class="goods-aside">
               <!-- 24小时 -->
-              <DetailHot :hot-type="1"/>
+              <DetailHot :hot-type="1" />
               <!-- 周 -->
-              <DetailHot :hot-type="2"/>
+              <DetailHot :hot-type="2" />
             </div>
           </div>
         </div>

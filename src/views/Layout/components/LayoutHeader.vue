@@ -2,6 +2,8 @@
 // import { onMounted, ref } from 'vue';
 // import { getCategoryAPI } from '../../../apis/layout';
 import { useCategoryStore } from '@/stores/category'
+import HeaderCartVue from './HeaderCart.vue'
+import HeaderCart from './HeaderCart.vue'
 
 const categoryStore = useCategoryStore()
 // const categoryList = ref([])
@@ -34,7 +36,7 @@ const categoryStore = useCategoryStore()
         <input type="text" placeholder="搜一搜">
       </div>
       <!-- 头部购物车 -->
-
+      <HeaderCart/>
     </div>
   </header>
 </template>
