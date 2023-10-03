@@ -25,3 +25,4 @@ app.use(router)
 app.mount('#app')
 app.use(lazyPlugin)
 app.use(componentPlugin)
+// 我在这里测试一下gitee
