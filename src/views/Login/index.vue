@@ -5,14 +5,13 @@ import { ref } from 'vue'
 import 'element-plus/theme-chalk/el-message.css'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
-
-import { useUserStore } from '../../stores/user'
+import { useUserStore } from '../../stores/userStore'
 
 const { getUserInfo } = useUserStore()
 
 // 1、准备表单对象
 const form = ref({
-    account: 'heima293',
+    account: 'heima282',
     password: 'hm#qd@23!',
     agree: true,
 })
@@ -45,22 +44,22 @@ const rules = {
 
 // 3、获取form实例做统一校验
 const formRef = ref(null)
-const router = useRouter() 
-const doLogin = ()=>{
-const {account, password} = form.value
+const router = useRouter()
+const doLogin = () => {
+    const { account, password } = form.value
 
     // 调用实例方法
-    formRef.value.validate(async (valid)=>{
+    formRef.value.validate(async (valid) => {
         // valid:所有表单都通过校验 才为true
-        console.log(valid);
-        if(valid){
+        // console.log(valid);
+        if (valid) {
             // TODO LOGIN
-          const res = await getUserInfo({account, password})
-          console.log(res);
-        // 1、提示用户
-        ElMessage({type:'success', message:'登入成功'})
-        // 2、跳转首页
-        router.replace({ path:'/' })
+            const res = await getUserInfo({ account, password })
+            console.log(res);
+            // 1、提示用户
+            ElMessage({ type: 'success', message: '登入成功' })
+            // 2、跳转首页
+            router.replace({ path: '/' })
         }
     })
 }
@@ -88,7 +87,8 @@ const {account, password} = form.value
                 </nav>
                 <div class="account-box">
                     <div class="form">
-                        <el-form :model="form" ref="formRef" label-position="right" label-width="60px" :rules="rules" status-icon>
+                        <el-form :model="form" ref="formRef" label-position="right" label-width="60px" :rules="rules"
+                            status-icon>
                             <el-form-item label="账户" prop="account" clearable>
                                 <el-input v-model="form.account" clearable placeholder="请输入用户名" />
                             </el-form-item>
@@ -351,4 +351,4 @@ const {account, password} = form.value
     width: 100%;
     color: #fff;
 }
-</style>
+</style>../../stores/userStore

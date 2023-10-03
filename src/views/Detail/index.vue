@@ -22,7 +22,7 @@ onMounted(() => getGoods())
 // sku规格被操作时
 let skuObj = {}
 const skuChange = (sku) => {
-  console.log('sku',sku);
+  // console.log('sku',sku);
   skuObj = sku
 }
 // count

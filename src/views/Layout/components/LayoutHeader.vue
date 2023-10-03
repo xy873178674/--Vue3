@@ -1,7 +1,7 @@
 <script setup>
 // import { onMounted, ref } from 'vue';
 // import { getCategoryAPI } from '../../../apis/layout';
-import { useCategoryStore } from '@/stores/category'
+import { useCategoryStore } from '@/stores/categoryStore'
 import HeaderCartVue from './HeaderCart.vue'
 import HeaderCart from './HeaderCart.vue'
 
@@ -142,4 +142,4 @@ const categoryStore = useCategoryStore()
       }
     }
   }
-}</style>
+}</style>@/stores/categoryStore

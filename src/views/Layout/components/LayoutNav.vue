@@ -1,5 +1,5 @@
 <script setup>
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from '@/stores/userStore'
 import { useRouter } from 'vue-router'
 const {userInfo, clearUserInfo} = useUserStore()
 const router = useRouter()
@@ -21,7 +21,11 @@ const confirm = () =>{
 
         <!-- 适配思路：登入时显示第一模块 非登入时显示第二模块  是否有token-->
         <template v-if="userInfo.token">
-          <li><a href="javascript:;"><i class="iconfont icon-user"></i>{{ userInfo.account }}</a></li>
+          <li>
+            <a href="javascript:;" @click="$router.push('/member')">
+            <i class="iconfont icon-user">
+            </i>{{ userInfo.account }}</a>
+          </li>
           <li>
             <el-popconfirm @confirm="confirm" title="确认退出吗?" confirm-button-text="确认" cancel-button-text="取消">
               <template #reference>
@@ -29,8 +33,8 @@ const confirm = () =>{
               </template>
             </el-popconfirm>
           </li>
-          <li><a href="javascript:;">我的订单</a></li>
-          <li><a href="javascript:;">会员中心</a></li>
+          <li><a href="javascript:;" @click="$router.push('/member/order')">我的订单</a></li>
+          <li><a href="javascript:;" @click="$router.push('/member')">会员中心</a></li>
         </template>
         <template v-else>
           <li><a href="javascript:;" @click="$router.push('/login')">请先登录</a></li>
@@ -76,4 +80,4 @@ const confirm = () =>{
     }
   }
 }
-</style>
+</style>@/stores/userStore
