@@ -25,5 +25,5 @@ app.use(router)
 app.mount('#app')
 app.use(lazyPlugin)
 app.use(componentPlugin)
-// 我在这里测试一下gitee
+// 我在这里测试一下git
 // git 测试
